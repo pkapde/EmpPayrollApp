@@ -27,3 +27,19 @@ exports.addEmployee = (request, response) => {
         })
     }
 }
+
+exports.getAllEmployee = (request, response) => {
+
+    try {
+        employeeService.getAllEmployee(request, (err, data) => {
+            if (err) {
+                response.status(500).send(err);
+            } else {
+                let dataResponse = { message: "Sucessfully Retrived Employees!!", data: data }
+                response.status(200).send(dataResponse);
+            }
+        })
+    } catch (e) {
+        response.status(404).send("Not Found!!");
+    }
+}

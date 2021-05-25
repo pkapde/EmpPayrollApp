@@ -32,3 +32,20 @@ exports.employeeRegistration = (request, callback) => {
 
     }
 }
+
+exports.getAllEmployee = (request, callback) => {
+    console.log("From getAll Employee");
+    try {
+        model.employeeModel.find()
+            .then(employees => {
+                console.log(employees)
+                    // response.json(employees);
+                callback(null, employees);
+            })
+            .catch(err => {
+                callback(err);
+            })
+    } catch (e) {
+
+    }
+}
