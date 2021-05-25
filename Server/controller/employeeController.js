@@ -10,10 +10,7 @@ exports.addEmployee = (request, response) => {
     request.checkBody("salary", "Salary cannot be empty").notEmpty();
     request.checkBody("startDate", "Date cannot be empty").notEmpty();
     request.checkBody("note", "Note cannot be empty").notEmpty();
-
-    //getting error while validation
     const error = request.validationErrors();
-    //if validation gets error send response 
     if (error)
         response.status(422).send(error);
     else {
@@ -29,7 +26,6 @@ exports.addEmployee = (request, response) => {
 }
 
 exports.getAllEmployee = (request, response) => {
-
     try {
         employeeService.getAllEmployee(request, (err, data) => {
             if (err) {
@@ -42,4 +38,31 @@ exports.getAllEmployee = (request, response) => {
     } catch (e) {
         response.status(404).send("Not Found!!");
     }
+}
+
+exports.updateEmployee = (request, response) => {
+    const error = request.validationErrors();
+    if (error)
+        response.status(422).send(error);
+    else {
+        let employeeData = {
+            "name": request.body.name === null ? null : request.body.name,
+            "profilePic": request.body.profilePic === null ? null : request.body.profilePic,
+            "gender": request.body.gender === null ? null : request.body.gender,
+            "department": request.body.department === null ? null : request.body.department,
+            "salary": request.body.salary === null ? null : request.body.salary,
+            "startDate": request.body.startDate === null ? null : request.body.startDate,
+            "note": request.body.note === null ? null : request.body.note
+        }
+        employeeService.updateEmployee(request, employeeData, (err, data) => {
+            if (err) {
+                response.status(500).send(err);
+            } else {
+                let dataResponse = { message: "Successfully Updated!!", data: employeeData }
+                response.status(200).send(dataResponse);
+
+            }
+        })
+    }
+
 }

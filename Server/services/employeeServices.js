@@ -34,12 +34,9 @@ exports.employeeRegistration = (request, callback) => {
 }
 
 exports.getAllEmployee = (request, callback) => {
-    console.log("From getAll Employee");
     try {
         model.employeeModel.find()
-            .then(employees => {
-                console.log(employees)
-                    // response.json(employees);
+            .then(employees => {    
                 callback(null, employees);
             })
             .catch(err => {
@@ -48,4 +45,16 @@ exports.getAllEmployee = (request, callback) => {
     } catch (e) {
 
     }
+}
+
+exports.updateEmployee = (request, data, callback) => {
+    let id = request.params.employees_id;
+    const updatedData = model.employeeModel.findByIdAndUpdate(id, data)
+        .then(updatedData => {
+            callback(null, updatedData);
+        })
+        .catch(err => {
+            callback(err);
+        })
+
 }
