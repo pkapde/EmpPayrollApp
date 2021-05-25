@@ -58,3 +58,17 @@ exports.updateEmployee = (request, data, callback) => {
         })
 
 }
+
+exports.removeEmployee = (request, response, callback) => {
+    let id = request.params.employees_id;
+    model.employeeModel.remove({
+            _id: id
+        })
+        .then(deletedEmployee => {
+            response.send({ message: 'Employee Deleted Sucessfully! ' });
+            callback(null, deletedEmployee);
+        })
+        .catch(err => {
+            callback(err);
+        })
+}

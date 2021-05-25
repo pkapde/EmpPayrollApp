@@ -29,10 +29,6 @@ let employeeModels = mongoose.Schema({
         type: String,
 
     },
-    _id: {
-        type: mongoose.Schema.Types.ObjectId,
-        required : [true]       
-    },
 
 }, { timeStamps: true })
 

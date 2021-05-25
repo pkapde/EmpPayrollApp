@@ -65,4 +65,22 @@ exports.updateEmployee = (request, response) => {
         })
     }
 
+    
+exports.removeEmployee = (request, response) => {
+    const error = request.validationErrors();
+    if (error)
+        response.status(422).send(error);
+    else {
+        employeeService.removeEmployee(request, response, (err, data) => {
+            if (err) {
+                response.status(500).send(err);
+            } else {
+                let dataResponse = { message: "Successfully Updated!!" }
+                response.status(200).send(dataResponse);
+            }
+        })
+    }
+
+}
+
 }
